@@ -43,6 +43,7 @@ public class MapsActivity extends Activity {
         mLocMan = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         mResult = (TextView)findViewById(R.id.result);
         mResult4 = (TextView)findViewById(R.id.result4);
+
         poly = new ArrayList<LatLng>();
 
 

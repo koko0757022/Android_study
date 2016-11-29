@@ -1,10 +1,10 @@
 package kr.soen.termproject;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -16,7 +16,6 @@ public class Term extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     Button btn;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,5 +49,18 @@ public class Term extends FragmentActivity implements OnMapReadyCallback {
         mMap.addMarker(new MarkerOptions().position(Seoul).title("Seoul"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(Seoul));
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(14));
+    }
+    public void mOnClick(View v){
+        switch(v.getId()){
+            case R.id.check2:
+                Intent intent = new Intent(this,StopWatch.class);
+                startActivity(intent);
+             break;
+            case R.id.check3:
+                break;
+            case R.id.check4:
+                break;
+
+        }
     }
 }

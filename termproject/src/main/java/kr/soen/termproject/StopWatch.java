@@ -55,6 +55,7 @@ public class StopWatch extends Activity {
                         myBtnRec.setEnabled(true); //기록버튼 활성
                         cur_Status = Run; //현재상태를 런상태로 변경
                         break;
+
                     case Run:
                         myTimer.removeMessages(0); //핸들러 메세지 제거 Handler message removing !!!
                         myPauseTime = SystemClock.elapsedRealtime();

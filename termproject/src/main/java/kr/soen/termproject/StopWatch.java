@@ -1,7 +1,6 @@
 package kr.soen.termproject;
 
 import android.app.Activity;
-import android.app.Notification;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -63,6 +62,7 @@ public class StopWatch extends Activity {
                         myBtnRec.setText("리셋");
                         cur_Status = Pause;
                         break;
+
                     case Pause:
                         long now = SystemClock.elapsedRealtime();
                         myTimer.sendEmptyMessage(0);
@@ -72,6 +72,7 @@ public class StopWatch extends Activity {
                         cur_Status = Run;
                         break;
                 }
+
                 break;
 
             case R.id.btn_rec:

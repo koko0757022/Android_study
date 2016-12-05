@@ -43,6 +43,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".StopWatch" android:label="StopWatch"/>
+        <activity android:name=".Record" android:label="Record"/>
+        <activity android:name=".Statistics" android:label="Statistics"/>
     </application>
 
 </manifest>

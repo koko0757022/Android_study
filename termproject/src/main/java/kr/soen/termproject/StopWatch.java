@@ -1,10 +1,12 @@
 package kr.soen.termproject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -70,6 +72,7 @@ public class StopWatch extends Activity {
                         myBtnStart.setText("멈춤");
                         myBtnRec.setText("기록");
                         cur_Status = Run;
+                        finish();
                         break;
                 }
 
@@ -82,6 +85,12 @@ public class StopWatch extends Activity {
                         str +=  String.format("%d. %s\n",myCount,getTimeOut()); // database에 저장할값...
                         myRec.setText(str);
                         myCount++; //카운트 증가
+                        Intent intent = new Intent();
+                        intent.putExtra("WatchOut",getTimeOut());
+                        setResult(RESULT_OK,intent);
+                        finish();
+                        Log.d("TAG","시간저장완료");
+
                         break;
 
                     case Pause:
@@ -107,11 +116,11 @@ public class StopWatch extends Activity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             myOutput.setText(getTimeOut());
-
             //sendEmptyMessage 는 비어있는 메세지를 Handler 에게 전송하는겁니다.
             myTimer.sendEmptyMessage(0);
         }
     };
+
     //현재시간을 계속 구해서 출력하는 메소드
     String getTimeOut(){
         long now = SystemClock.elapsedRealtime(); //애플리케이션이 실행되고나서 실제로 경과된 시간(??)^^;

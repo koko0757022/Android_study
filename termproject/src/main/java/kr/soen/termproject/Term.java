@@ -52,7 +52,7 @@ public class Term extends FragmentActivity {
     double slat1;
     double slat2;
     final static LatLng SEOUL = new LatLng(37.56, 126.97);
-    final static int ACT_EDIT2 = 2;
+
     final static int ACT_EDIT3 = 3;
 
     String watch_out;
@@ -145,13 +145,7 @@ public class Term extends FragmentActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch(requestCode){
-            case ACT_EDIT2:
-                if(resultCode == RESULT_OK){
-                    //database에 저장합니다
-                   watch_out = data.getStringExtra("WatchOut");
-                    Log.d("TAG","watch_out 대입");
-                }
-                break;
+
             case ACT_EDIT3:
                 if(resultCode == RESULT_OK){
                     //database에 저장합니다
@@ -182,7 +176,7 @@ public class Term extends FragmentActivity {
     }
 
 
-    void setMapPosition(double lat, double lng, int zlevel){
+    void setMap(double lat, double lng, int zlevel){
 
         LatLng pt = new LatLng(lat,lng);
         CameraPosition cp = new CameraPosition.Builder().target(pt).zoom(zlevel).build();
@@ -199,7 +193,7 @@ public class Term extends FragmentActivity {
             Log.d("TAG","업데이트가되려나???");
             slat1 = location.getLatitude();
             slat2 = location.getLongitude();
-            setMapPosition(slat1,slat2,18);
+            setMap(slat1,slat2,18);
             geoConvert(slat1,slat2);
             Log.d("TAG","주소변환완료");
             PolylineOptions polyline = new PolylineOptions().addAll(poly).color(Color.BLUE).width(15);

@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>  //기지국
     <uses-permission android:name="android.permission.CAMERA"/> // 카메라
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -42,7 +43,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StopWatch" android:label="StopWatch"/>
         <activity android:name=".Record" android:label="Record"/>
         <activity android:name=".Statistics" android:label="Statistics"/>
     </application>

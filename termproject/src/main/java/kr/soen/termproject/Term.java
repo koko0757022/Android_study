@@ -14,6 +14,9 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Handler;
+import android.os.Message;
+import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -27,6 +30,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.io.IOException;
@@ -60,7 +64,7 @@ public class Term extends FragmentActivity {
     String Field3;
     String total;
 
-
+    long myBaseTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,23 +101,19 @@ public class Term extends FragmentActivity {
                     if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
                     }
-                    mLocMan.requestLocationUpdates(mProvider,  10000, 1, mListener);
+                    mLocMan.requestLocationUpdates(mProvider,  6*1000, 10, mListener);
                     Log.d("TAG", "GPs_on키쟈~~~~~~~~");
+
+                    myBaseTime = SystemClock.elapsedRealtime();
+                    myTimer.sendEmptyMessage(0);  //myTimer이라는 핸들러를 빈 메세지를 보내서 호출
                 }else {
 
                         btn.setText("Gps_On");
-                        PolylineOptions polyline = new PolylineOptions().addAll(poly).color(Color.BLUE).width(15);
-                        mMap.addPolyline(polyline);
 
                         mLocMan.removeUpdates(mListener);
-
-                }
+                    watch_out = getTimeOut();
+                    mMap.clear();                }
                 break;
-
-            case R.id.check2:
-                Intent intent1 = new Intent(this,StopWatch.class);
-                startActivityForResult(intent1,ACT_EDIT2);
-             break;
 
             case R.id.check3:
                 Intent intent2 = new Intent(this,Record.class);
@@ -202,6 +202,8 @@ public class Term extends FragmentActivity {
             setMapPosition(slat1,slat2,18);
             geoConvert(slat1,slat2);
             Log.d("TAG","주소변환완료");
+            PolylineOptions polyline = new PolylineOptions().addAll(poly).color(Color.BLUE).width(15);
+            mMap.addPolyline(polyline);
 
         }
         public void onProviderDisabled(String provider) {
@@ -244,5 +246,22 @@ public class Term extends FragmentActivity {
             total = "내용없음";
         }
         mHelper.close();
+    }
+
+    Handler myTimer = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            //sendEmptyMessage 는 비어있는 메세지를 Handler 에게 전송하는겁니다.
+            myTimer.sendEmptyMessage(0);
+        }
+    };
+
+    //현재시간을 계속 구해서 출력하는 메소드
+    String getTimeOut(){
+        long now = SystemClock.elapsedRealtime(); //애플리케이션이 실행되고나서 실제로 경과된 시간(??)^^;
+        long outTime = now - myBaseTime;
+        String easy_outTime = String.format("%02d:%02d:%02d", outTime/1000 / 60, (outTime/1000)%60,(outTime%1000)/10);
+        return easy_outTime;
     }
 }

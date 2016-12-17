@@ -101,7 +101,7 @@ public class Term extends FragmentActivity {
                     if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
                     }
-                    mLocMan.requestLocationUpdates(mProvider,  6*1000, 10, mListener);
+                    mLocMan.requestLocationUpdates(mProvider,  60*1000, 10, mListener);
                     Log.d("TAG", "GPs_on키쟈~~~~~~~~");
 
                     myBaseTime = SystemClock.elapsedRealtime();
